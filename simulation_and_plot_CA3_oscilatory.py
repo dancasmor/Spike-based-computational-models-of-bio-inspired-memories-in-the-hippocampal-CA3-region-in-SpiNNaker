@@ -29,51 +29,19 @@ def custom_plots(fullPathFile, plot, save, saveName, savePath):
     # Buscamos las variables v y spikes
     vPC, spikesPC, spikesDG, wPC_PC, vINH, spikesINH = {}, {}, {}, {}, {}, {}
     for variable in data["variables"]:
-        if variable["type"] == "v" and variable["popNameShort"] == "PCL":
-            vPC = variable
-        elif variable["type"] == "spikes" and variable["popNameShort"] == "PCL":
+        if variable["type"] == "spikes" and variable["popNameShort"] == "PCL":
             spikesPC = variable
         elif variable["type"] == "spikes" and variable["popNameShort"] == "DGL":
             spikesDG = variable
-        elif variable["type"] == "w" and variable["popNameShort"] == "PCL-PCL":
-            wPC_PC = variable
 
     # Colores a usar en las representaciones y el stream de instantes de tiempo que ha durado la simulación
     colors = ["red", "green", "blue", "orange", "pink", "goldenrod"]
     timeStream = utils.generate_time_streams(data["simTime"], data["timeStep"], False)
 
-
-    # Representamos V y spikes de cada PC
-    """
-    vMin = data["neuronParameters"][vPC["popNameShort"]]["v_rest"]
-    vMax = data["neuronParameters"][vPC["popNameShort"]]["v_thresh"]
-    utils.plot_spike_v_comb_all(vPC["data"], spikesPC["data"], [vMin, vMax], 1, data["simTime"], data["timeStep"],
-                                vPC["popName"], False, True, plot, save, saveName + "_v_spike_" + vPC["popNameShort"], savePath)
-    """
-
     # Representamos los spikes recibidos y emitidos por cada PC
     utils.plot_spike_pc_dg(spikesPC["data"], spikesDG["data"], timeStream, colors, 0.01, "Spikes DG-CA3", True, plot,
                            save, saveName+ "_spikes_DG_CA3", savePath)
 
-    """
-    # Representación de la evolución de los pesos de las sinapsis
-    utils.plot_weight_single_neuron(wPC_PC["data"]["srcNeuronId"], wPC_PC["data"]["dstNeuronId"],
-                                    wPC_PC["data"]["timeStamp"], wPC_PC["data"]["w"],
-                                    [data["synParameters"]["PCL-PCL"]["w_min"]-0.5, data["synParameters"]["PCL-PCL"]["w_max"]+0.5], colors, plot, save, saveName,
-                                    savePath)
-    
-    # Creamos una carpeta para los pesos de sinapsis individuales
-    savePath = utils.check_folder(savePath + "synapseW/")
-    if not savePath:
-        print("Error al crear la carpeta de almacenamiento")
-        return False
-    
-    # Representamos la evolución de los pesos de las sinapsis de forma individual
-    utils.plot_weight_single_synapse(wPC_PC["data"]["srcNeuronId"], wPC_PC["data"]["dstNeuronId"],
-                                    wPC_PC["data"]["timeStamp"], wPC_PC["data"]["w"],
-                                    [data["synParameters"]["PCL-PCL"]["w_min"]-0.5, data["synParameters"]["PCL-PCL"]["w_max"]+0.5],
-                                    plot, save, saveName, savePath)
-    """
     return True
 
 
