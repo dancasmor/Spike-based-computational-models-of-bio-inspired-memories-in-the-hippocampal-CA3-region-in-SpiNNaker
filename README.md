@@ -18,17 +18,20 @@
 Still under construction.
 </p>
 
+<h3>Article</h3>
 <p align="justify">
-**Abstract**: The human brain is the most powerful and efficient machine in existence today, surpassing in many ways the capabilities of modern computers. Currently, lines of research in neuromorphic engineering are trying to develop hardware that mimics the functioning of the brain to acquire these superior capabilities. One of the areas still under development is the design of bio-inspired memories, where the hippocampus plays an important role. This region of the brain acts as a short-term memory with the ability to store associations of information from different sensory streams in the brain and recall them later. This is possible thanks to the recurrent collateral network architecture that constitutes CA3, the main sub-region of the hippocampus. In this work, we developed two spike-based computational models of fully functional hippocampal bio-inspired memories for the storage and recall of complex patterns implemented with spiking neural networks on the SpiNNaker hardware platform. These models present different levels of biological abstraction, with the first model having a constant oscillatory activity closer to the biological model, and the second one having an energy-efficient regulated activity, which, although it is still bio-inspired, opts for a more functional approach. Different experiments were performed for each of the models, in order to test their learning/recalling capabilities. A comprehensive comparison between the functionality and the biological plausibility of the presented models was carried out, showing their strengths and weaknesses. The two models, which are publicly available for researchers, could pave the way for future spike-based implementations and applications.
+<strong>Title</strong>: Spike-based computational models of bio-inspired memories in the hippocampal CA3 region on SpiNNaker
 
-**Keywords**: Hippocampus model, CA3, Neuromorphic engineering, spiking neural networks, SpiNNaker, spike-based memory
+<strong>Abstract</strong>: The human brain is the most powerful and efficient machine in existence today, surpassing in many ways the capabilities of modern computers. Currently, lines of research in neuromorphic engineering are trying to develop hardware that mimics the functioning of the brain to acquire these superior capabilities. One of the areas still under development is the design of bio-inspired memories, where the hippocampus plays an important role. This region of the brain acts as a short-term memory with the ability to store associations of information from different sensory streams in the brain and recall them later. This is possible thanks to the recurrent collateral network architecture that constitutes CA3, the main sub-region of the hippocampus. In this work, we developed two spike-based computational models of fully functional hippocampal bio-inspired memories for the storage and recall of complex patterns implemented with spiking neural networks on the SpiNNaker hardware platform. These models present different levels of biological abstraction, with the first model having a constant oscillatory activity closer to the biological model, and the second one having an energy-efficient regulated activity, which, although it is still bio-inspired, opts for a more functional approach. Different experiments were performed for each of the models, in order to test their learning/recalling capabilities. A comprehensive comparison between the functionality and the biological plausibility of the presented models was carried out, showing their strengths and weaknesses. The two models, which are publicly available for researchers, could pave the way for future spike-based implementations and applications.
 
-**Author**: Daniel Casanueva-Morato
+<strong>Keywords</strong>: Hippocampus model, CA3, Neuromorphic engineering, spiking neural networks, SpiNNaker, spike-based memory
 
-**Contact**: dcasanueva@us.es
+<strong>Author</strong>: Daniel Casanueva-Morato
+
+<strong>Contact</strong>: dcasanueva@us.es
 </p>
 
-<h3>Content</h3>
+<h3>Repository contents</h3>
 <p align="justify">
 
 </p>
