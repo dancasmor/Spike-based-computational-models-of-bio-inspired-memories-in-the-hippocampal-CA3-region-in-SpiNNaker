@@ -7,7 +7,7 @@ Oscilatory CA3 network
 
 + Populations: 
     + DG: pattern input
-    + PC of CA3: to store memory.
+    + PC of CA3: to store memory  
 
 + Synapses: 
     + DG-PC: 1-to-1, excitatory and static

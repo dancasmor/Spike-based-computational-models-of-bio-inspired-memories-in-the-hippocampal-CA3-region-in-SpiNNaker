@@ -6,27 +6,28 @@ import CA3_oscilatory
 
 def custom_plots(fullPathFile, plot, save, saveName, savePath):
     """
-    Función de prueba de apertura de archivo y generación de los plots personalizados
+    Processing the data from a simulation to get a visual representation of the result
 
-    :param fullPathFile: path + filename al archivo con los datos de la simulación
-    :param plot: bool que indica si se quiere o no mostrar los plots generados
-    :param save: bool que indica si se quiere o no guardar dichos plots
-    :param saveName: nombre base con el que almacenar los plots
-    :param savePath: path donde almacenar los ficheros
-    :return: True si se ha ejecutado correctamente o False si ha habido problemas
+    :param fullPathFile: the full path to the file with the data recorded from the simulation
+    :param plot: if show the plot in running time
+    :param save: if store the plots
+    :param saveName: the base name used to store the generated files
+    :param savePath: the base path used to store the generated files
+    :return: True if the simulation and/or the creation of the visual representation of the data has been done correctly
+            or False in other cases
     """
-    # Abrimos el archivo
+    # Open data file of the simulation
     data = utils.read_file(fullPathFile)
     if not data:
-        print("Error al abrir el fichero de datos")
+        print("Error to open data file")
         return False
-    # Creamos la carpeta donde almacenar los plots
+    # Create folder to store all the generated files
     savePath = utils.check_folder(savePath + saveName + "/")
     if not savePath:
-        print("Error al crear la carpeta de almacenamiento")
+        print("Error to create a folder to store generated files")
         return False
 
-    # Buscamos las variables v y spikes
+    # Search all variables which are going to be used to create the plots and representations
     vPC, spikesPC, spikesDG, wPC_PC, vINH, spikesINH = {}, {}, {}, {}, {}, {}
     for variable in data["variables"]:
         if variable["type"] == "spikes" and variable["popNameShort"] == "PCL":
@@ -34,11 +35,11 @@ def custom_plots(fullPathFile, plot, save, saveName, savePath):
         elif variable["type"] == "spikes" and variable["popNameShort"] == "DGL":
             spikesDG = variable
 
-    # Colores a usar en las representaciones y el stream de instantes de tiempo que ha durado la simulación
+    # Create the stream of time stamp and color to use in representations
     colors = ["red", "green", "blue", "orange", "pink", "goldenrod"]
     timeStream = utils.generate_time_streams(data["simTime"], data["timeStep"], False)
 
-    # Representamos los spikes recibidos y emitidos por cada PC
+    # Create a spike plot of all activations of DG and PC (CA3) neurons
     utils.plot_spike_pc_dg(spikesPC["data"], spikesDG["data"], timeStream, colors, 0.01, "Spikes DG-CA3", True, plot,
                            save, saveName+ "_spikes_DG_CA3", savePath)
 
@@ -47,38 +48,38 @@ def custom_plots(fullPathFile, plot, save, saveName, savePath):
 
 def main(plot, save, savePath, execute, fullPathFile, saveName):
     """
-    Ejecuta el modelo o no y hace el plot indicado de los parámetros
+    Execute the simulation of the network and/or create a visual representation of the data recorded
 
-    :param plot: bool que indica si se quiere o no mostrar los plots generados
-    :param save: bool que indica si se quiere o no guardar dichos plots
-    :param savePath: path donde almacenar los ficheros
-    :param execute: si ejecutar o no la simulación del modelo
-    :param fullPathFile: path + filename al archivo con los datos de la simulación en caso de que execute = False
-    :param saveName: nombre base con el que almacenar los plots en caso de que execute = False
+    :param plot: if show the plot in running time
+    :param save: if store the plots
+    :param savePath: the base path used to store the generated files
+    :param execute: if execute or not the simulation, in case of false, a fullPathFile is needed
+    :param fullPathFile: the full path to the file with the data recorded from the simulation
+    :param saveName: the base name used to store the generated files
     :return:
     """
-    # Ejecutamos el modelo
+    # Execute the model if applicable
     if execute:
         fullPathFile, filename = CA3_oscilatory.main()
         saveName = filename
-    # Hacemos el plot de los datos
+    # Processing the data and plot it
     custom_plots(fullPathFile, plot, save, saveName, savePath)
 
 
 if __name__ == "__main__":
-    # Parámetros para modelar la ejecución y plot de los resultados
-    # + Si representar la gráfica de las variables o no
+    # Plot and execution parameters
+    # + If show the plot in running time
     plot = False
-    # + Si almacenar en imagen las gráficas
+    # + If store the plots
     save = True
-    # + Dirección a la carpeta raíz donde almacenar los plots
+    # + Base path where store the plot
     savePath = "plot/"
-    # + Si ejecutar o no el modelo
+    # + If execute the network or take already generated data
     execute = True
-    # + En caso de no ejecutar el modelo, se debe de especificar el path+filename al archivo con los datos a representar
-    #    y el nombre base con el que almacenar los plots (recomendable que sea el nombre del fichero de datos)
+    # + If not execute, the full path to the file with the data recorded from the simulation and the base name used to store
+    #   the generated files (txt, png, ...)
     fullPathFile = "data/CA3_simple_2021_11_18__12_42_34.txt"
     saveName = "CA3_simple_2021_11_18__12_42_34"
 
-    # Simulación y/o representación
+    # Simulation and/or representation
     main(plot, save, savePath, execute, fullPathFile, saveName)

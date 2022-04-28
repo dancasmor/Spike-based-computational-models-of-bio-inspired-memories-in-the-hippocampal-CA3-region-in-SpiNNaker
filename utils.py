@@ -12,32 +12,28 @@ import numpy as np
 
 def write_file(basePath, title, data):
     """
-    Escribe en un fichero los datos de entrada
+    Generic function to write the data into a file
 
-    :param basePath: path en el que almacenar el fichero de datos
-    :param title: título del fichero a crear
-    :param data: los datos que se quieren almacenar en el fichero
-    :return: fullPath (path + filename), filename (nombre del fichero creado sin extensión ni path)
+    :param basePath: directory path where the file will be stored
+    :param title: name of the file
+    :param data: data to store in the file
+    :return: full path to the file created, name of the file created
     """
-    # Extraemos la fecha y hora actuales
     strDate = time.strftime("%Y_%m_%d__%H_%M_%S")
-    # Creamos el nombre del fichero como año_mes_dia_hora.txt
     filename = title + "_" + strDate
     fullPath = basePath + filename + ".txt"
-    # Escribimos los datos en el fichero
     file = open(fullPath, "w")
     file.write(str(data))
     file.close()
-    # Devolvemos el path al archivo guardado
     return fullPath, filename
 
 
 def read_file(fullPath):
     """
-    Lee el fichero pasado por parámetro
+    Read the file in fullPath
 
-    :param fullPath: path + filename del fichero a leer
-    :return: los datos leidos del fichero o False si no se ha podido acceder al mismo
+    :param fullPath: path + filename to the file to read
+    :return: data read from the file or False if the file could not be accessed
     """
     try:
         file = open(fullPath, "r")
@@ -48,34 +44,34 @@ def read_file(fullPath):
 
 def check_folder(path):
     """
-    Comprueba si existe una carpeta y, en caso de que no exista, la crea
+    Check if a folder exist and, if it does not exist, it creates it
 
-    :param path: path a donde se encuentra la carpeta a comprobar/crear
-    :return: el path si se ha creado/existe o False si no existe y, además, no se ha podido crear
+    :param path: path where the folder is located or want to be created
+    :return: the path if folder exist or has been created or False if the folder doesn't exist and can't be created
     """
     if not os.path.isdir(path):
         try:
             os.mkdir(path)
             return path
         except OSError as e:
-            print("Error al crear el directorio")
+            print("Error to create directory")
             return False
     else:
         return path
 
 
 #####################################
-# Formateo de datos
+# Data format
 #####################################
 
 def format_neo_data(tipo, stream, timeStream={}):
     """
-    Formatea los streams de datos generados en neo para eliminar las cabeceras
+    Format the streams of neo data to delete headers and/or make the data structure used in the rest of functions
 
-    :param tipo: tipo de dato que se está manejando ("v", "spikes" y "weights" soportados actualmente)
-    :param stream: el stream de datos (en formato neo salvo el del peso) que se quiere formatear
-    :param timeStream: parámetro opcional usado para el formateo del stream del peso -> {"simTime", "timeStep"}
-    :return: el stream formateado
+    :param tipo: type of neo data ("v", "spikes" and "weights" supported)
+    :param stream: data streams to be formated
+    :param timeStream: (optional) {"simTime", "timeStep"} necessary to add the time stamp to the weights stream format
+    :return: formated stream or Raise an error if is an unsopported type of data
     """
     if timeStream is None:
         timeStream = []
@@ -92,21 +88,22 @@ def format_neo_data(tipo, stream, timeStream={}):
 
 def format_v_stream(vStream):
     """
-    Cambia el formato de streams neo para el potencial de membrana a otro más sencillo sin cabeceras
+    Change the format of the neo data streams of membrane potentials and correct nan values
 
-    :param vStream: el stream de potenciales de membrana en formato neo
-    :return: el stream de v formateado
+    :param vStream: neo streams of membrane potentials
+    :return: v stream formated
     """
     formatV = []
-    # Obtenemos la matriz de valores ->
-    #   cada elemento representa un time_stamp y el contenido de dicho elemento el valor para cada neurona
+    # Obtain the matrix of values ->
+    #   each element represents a time_stamp and the content of that element the value for each neuron
     rawStream = vStream.as_array().tolist()
-    # Comprobamos cuantas neuronas hay en cada time_stamp
+    # Extract the nnumber of neuron on each time stamp
     numNeurons = len(rawStream[0])
-    # Reformateamos para que se al revés, cada elemento sea una neurona y el contenido los valores para cada time_stamp
+    # Reformat it so each element is a neuron and the content is the values for each time stamp
     for neuron in range(0, numNeurons):
         formatV.append([item[neuron] for item in rawStream])
-    # Comprobamos que no haya valores con "nan"
+    # Change nan values for -60 if it is the first value in the stream, the value of the previous instant if it is the
+    #  last instant and the average of the instants before and after in another case
     for indexNeuron, neuron in enumerate(formatV):
         for indexTime, timeStamp in enumerate(neuron):
             if str(formatV[indexNeuron][indexTime]) == "nan":
@@ -122,13 +119,12 @@ def format_v_stream(vStream):
 
 def format_spike_stream(spikes):
     """
-    Cambia el formato de streams neo para los spikes a otro más sencillo sin cabeceras
+    Change the format of the neo data streams of spikes generated by neurons
 
-    :param spikes: el stream de spikes en formato neo
-    :return: el stream de spikes formateado
+    :param spikesStream: neo stream of spikes
+    :return: spikes stream formated
     """
     formatSpikes = []
-    # Extraemos los spikes para cada neurona
     for neuron in spikes:
         formatSpikes.append(neuron.as_array().tolist())
     return formatSpikes
@@ -136,27 +132,21 @@ def format_spike_stream(spikes):
 
 def format_weight_stream(weights, timeParam):
     """
-    Devuelve la información de los pesos separadas en diferentes campos/variables listo para ser representados
+    Change the format of the streams of weights recorded
 
-    :param weights: el stream con todas las variables mezcladas relacionadas con el peso y la sinapsis a la que pertenece
-    :param timeParam: parámetros temporales de la simulación -> {"simTime", "timeStep"}
-    :return: los parámetros del stream de pesos divididos en 4 variables -> {"srcNeuronId", "dstNeuronId", "w", "timeStamp"}
+    :param weightsStream: weight stream
+    :param timeStreamParam: temporal parameters of the simulation -> {"simTime", "timeStep"}
+    :return: formated weight stream -> {"srcNeuronId", "dstNeuronId", "w", "timeStamp"}
     """
     srcNeuronId, dstNeuronId, w, timeStampStream = [], [], [], []
 
-    # Generamos la secuencia temporal en ms
+    # Generate time stream in ms
     timeStream = generate_time_streams(timeParam["simTime"], timeParam["timeStep"], False, True)
 
-    # Por cada marca temporal de la simulación...
+    # For each time stamp:
     for indexStep, step in enumerate(weights):
-        # Para cada sinapsis en dicha marca temporal...
+        # For each synapse:
         for indexSyn, synapse in enumerate(step):
-            """
-            # En caso de que haya tuplas corruptas
-            if not (type(synapse) == tuple):
-                continue
-            """
-            # Extraemos los valores de las tuplas y las almacenados de forma separada
             srcNeuronId.append(synapse[0])
             dstNeuronId.append(synapse[1])
             w.append(synapse[2])
@@ -166,69 +156,69 @@ def format_weight_stream(weights, timeParam):
 
 def get_last_stamp_synapse_list(dataPath, delay=1.0, synapse="PCL-PCL"):
     """
-    Dado el path+filename del fichero de datos de una prueba, extraemos el peso de la última iteración
+    Given full path filename of data file from a simulation, extract the last iteration weight
 
-    :param dataPath: path+filename del fichero con los datos de una prueba anterior
-    :param delay: delay que añadir a la sinapsis
-    :param synapse: nombre de la sinapsis del que extraer los pesos
-    :return: lista de sinapsis (src,dst,w) del último timestamp y otra lista con metadatos de las conexiones
+    :param dataPath: full path filename of data file from a simulation
+    :param delay: delay to add to the synapses
+    :param synapse: name of synapses that want to extract the weight
+    :return: synapse list (src,dst,w) of last timestamp and other metadata
     """
 
-    # Abrimos el archivo con los datos de los pesos
+    # Open file with weights
     data = read_file(dataPath)
 
-    # Buscamos la variable de peso de las sinapsis PCL-PCL
+    # Search weight variable with given synapse name
     w = {}
     for variable in data["variables"]:
         if variable["type"] == "w" and variable["popNameShort"] == synapse:
             w = variable["data"]
 
-    # Comprobamos que hemos encontrado los datos deseados
+    # Check if data has been found
     if w == {}:
         print("Error al leer el archivo")
         return False
 
-    # Seleccionamos el último timeStamp (el más grande)
+    # Take the last timeStamp
     maxTimeStamp = max(list(set(w["timeStamp"])))
 
-    # Extraemos todos los índices que pertenecen a dicho valor de timestamp
+    # Take all indeces from the last timestamp
     maxTimeStampIndeces = [i for i, value in enumerate(w["timeStamp"]) if value == maxTimeStamp]
 
-    # Conseguimos los valores de peso, id origen y destino para dichos timeStamps
+    # Get weight, source id and destiny id from that timestamp
     lastTimeStampWeights = itemgetter(*maxTimeStampIndeces)(w["w"])
     lastTimeStampSrcNeuron = itemgetter(*maxTimeStampIndeces)(w["srcNeuronId"])
     lastTimeStampDstNeuron = itemgetter(*maxTimeStampIndeces)(w["dstNeuronId"])
 
-    # Creamos la lista de tuplas
+    # Create the list of data
     synapses = []
     for index, w_individual in enumerate(lastTimeStampWeights):
         synapses.append((lastTimeStampSrcNeuron[index], lastTimeStampDstNeuron[index], w_individual, delay))
 
-    # Devolvemos la lista de sinapsis y la metainformación de la sinapsis original STDP
+    # Return list of synapse and metainformation of original STDP synapses
     return synapses, data["synParameters"][synapse]
 
 
 #####################################
-# Data generation
+# Generation of data
 #####################################
 
 def generate_time_streams(simTime, timeStep, timeInSeg, endPlus=False):
     """
-    Genera una secuencia temporal en s o ms de la duración de la simulación usando el timestep de la misma
+    Generates a time sequence in s or ms of the simulation duration using the timestep of the simulation
 
-    :param simTime: tiempo de simulación de la red (ms)
-    :param timeStep: paso de tiempo usado en la simulación (ms)
-    :param timeInSeg: bool que indica si se quiere el stream en segundo o ms
-    :param endPlus: bool opcional que indica si se quiere incluir el valor de simTime dentro de la secuencia o no
-    :return: la secuencia temporal configurada por los parámetros de entrada
+    :param simTime: duration of the simulation in ms
+    :param timeStep: time step used in simulation in ms
+    :param timeInSeg: time unit of the sequence: ms or s
+    :param endPlus: (optional) bool to indicate if include the simTime stamp at the end of the sequence
+    :return: temporal sequence
     """
-    # Tomar el instante de tiempo final de la secuencia o no
+    # Add the last time stamp of the time sequence or not
     if endPlus:
         endCount = 1
     else:
         endCount = 0
 
-    # Generar la secuencia en s o ms
+    # Generated time sequence in s o ms
     if timeInSeg:
         timeStream = generate_sequence(0, simTime + endCount, timeStep, 1000)
     else:
@@ -238,13 +228,13 @@ def generate_time_streams(simTime, timeStep, timeInSeg, endPlus=False):
 
 def generate_sequence(start, stop, step, divisor):
     """
-    Genera una secuencia de números dada las condiciones de entrada
+    Generate a sequence of numbers with the input conditions (start included, stop not included)
 
-    :param start: comienzo de la secuencia
-    :param stop: parada de la secuencia
-    :param step: incremento en cada iteración -> tanto int como float
-    :param divisor: valor por el que dividir la cuenta a la hora de almacenarla
-    :return: la secuencia de valores generados
+    :param start: start of sequence (included)
+    :param stop: stop value of the sequence (non included)
+    :param step: increment in each iteration
+    :param divisor: value by which to divide the counting when storing it
+    :return: sequence of generated values
     """
     sequence = []
     count = start
@@ -261,26 +251,25 @@ def generate_sequence(start, stop, step, divisor):
 
 def plot_spike_pc_dg(spikesPC, spikesDG, timeStream, colors, marginLim, title, rotateLabels, plot, saveFig, saveName, savePath):
     """
-    Genera una gráfica en la que se representan los spikes recibidos y emitidos por las neuronas PC y DG
+    Create a spike plot of all activations of DG and PC (CA3) neurons
 
-    :param spikesPCdir: spikes generados por PCd
-    :param spikesDG: spikes generados por DG
-    :param timeStream: stream de instantes de tiempos de la simulación
-    :param colors: lista de colores para representar las diferentes neuronas
-    :param marginLim: cantidad adicional (float) que se añade a los límites para evitar que se corten los bordes
-    :param title: título de la gráfica
-    :param rotateLabels: indica si rotar o no (90º) las etiquetas para que se puedan ver bien
-    :param plot: bool que indica si representar o no los plots generados
-    :param saveFig: bool que indica si se quiere o no guardar dichos plots
-    :param saveName: nombre base con el que almacenar los plots
-    :param savePath: path donde almacenar los ficheros
-    :return: path+filename donde se ha almacenado la figura, si procede
+    :param spikesPCdir: PCdir spike stream 
+    :param spikesDG: DG spike stream 
+    :param timeStream: time stamp stream
+    :param colors: list of color for each population of neuron to represent
+    :param marginLim: additional margin to the spike amplitude to mark the begin and end of the representation view
+    :param title: title of the plot
+    :param rotateLabels: if rotate (90º) or not the labels of spikes
+    :param plot: bool, if plot the figure
+    :param saveFig: bool, if save the figure in a png file
+    :param saveName: base name of the output png file
+    :param savePath: path where to store the png file
+    :return: full path (path + fig name) where the figure has been stored, if isSave is True
     """
 
-    # Instanciamos la figura
     plt.figure(figsize=(24, 8))
 
-    # Añadimos los spikes PC dir, cont y DG
+    # Add PC dir, cont and DG spikes
     label = "DG"
     for spikeDG in spikesDG:
         plt.vlines(spikeDG, ymin=0 - marginLim, ymax=0.5 , color=colors[0], label=label)
@@ -290,10 +279,10 @@ def plot_spike_pc_dg(spikesPC, spikesDG, timeStream, colors, marginLim, title, r
         plt.vlines(spikePC, ymin=0, ymax=0.5 + marginLim, color=colors[1], label=label)
         label = "_nolegend_"
 
-    # Construimos etiquetas en la que indicamos que neuronas han sido las que han generado spikes en cada instante
+    # Make labels for spikes in each instant
     for stamp in timeStream:
         label = ""
-        # Comprobación de si se ha generado un spike PC o DG
+        # For current instant, check if a spike has occurred
         sublabel = "DG"
         for indexNeuron, spikeDG in enumerate(spikesDG):
             if stamp in spikeDG:
@@ -305,31 +294,27 @@ def plot_spike_pc_dg(spikesPC, spikesDG, timeStream, colors, marginLim, title, r
             if stamp in spikePC:
                 label = label + sublabel + str(indexNeuron)
                 sublabel = "-"
-        # Realizamos la anotación sobre el instante temporal actual
+        # Add the label to the current instant
         plt.annotate(label, xy=(stamp+0.1, 0.01), rotation=90, fontsize=15)
 
-    # Añadimos los metadatos de texto
+    # Add metadata
     plt.xlabel("Simulation time (ms)", fontsize=15)
     plt.ylabel("Spikes", fontsize=15)
     plt.title(title, fontsize=15)
     plt.ylim([-marginLim, 0.5 + marginLim])
     plt.xlim(-0.5, max(timeStream) + 1.5)
-    # Definimos la lista de marcas en el eje X
     listXticks = list(set([spike for sublist in spikesPC for spike in sublist] \
                  + [spike for sublist in spikesDG for spike in sublist]))
-    # Añadimos las marcas
     plt.xticks(listXticks, fontsize=15)
-    # plt.yticks(fontsize=15)
     plt.legend(bbox_to_anchor=(1.0, 1.0), loc='upper left', fontsize=15)
-    # Rotar o no las etiquetas
     if rotateLabels:
         plt.xticks(rotation=90)
 
-    # Guardamos y/o mostramos la figura
+    # Save and/or plot the figure
     if saveFig:
         plt.savefig(savePath + saveName + ".png")
     if plot:
         plt.show()
     plt.close()
-    # Devolvemos la dirección a donde se ha almacenado la figura, si procede
+    
     return savePath + saveName + ".png"
