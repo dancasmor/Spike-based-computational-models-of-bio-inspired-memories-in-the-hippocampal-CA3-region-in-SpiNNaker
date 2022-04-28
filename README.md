@@ -6,6 +6,7 @@
 <li><a href="#Description">Description</a></li>
 <li><a href="#Instalation">Instalation</a></li>
 <li><a href="#Usage">Usage</a></li>
+<li><a href="#RepositoryContent">Repository content</a></li>
 <li><a href="#CiteThisWork">Cite this work</a></li>
 <li><a href="#Credits">Credits</a></li>
 <li><a href="#License">License</a></li>
@@ -31,13 +32,14 @@ Still under construction.
 <strong>Contact</strong>: dcasanueva@us.es
 </p>
 
-<h3>Repository contents</h3>
-<p align="justify">
 
+<h2 name="Instalation">Instalation</h2>
+<p align="justify">
+Still under construction.
 </p>
 
 
-<h2 name="Instalation">Instalation</h2>
+<h2 name="RepositoryContent">Repository content</h3>
 <p align="justify">
 Still under construction.
 </p>
