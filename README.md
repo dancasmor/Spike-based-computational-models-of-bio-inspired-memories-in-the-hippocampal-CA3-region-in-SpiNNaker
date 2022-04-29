@@ -16,7 +16,9 @@
 
 <h2 name="Description">Description</h2>
 <p align="justify">
-Still under construction.
+Code on which the paper entitled "Spike-based computational models of bio-inspired memories in the hippocampal CA3 region in SpiNNaker" is based, accepted and awaiting publication at the congress International Joint Conference on Neural Networks of 2022 <a href="https://wcci2022.org/call-for-papers/">(IJCNN 2022)</a>. 
+
+Two hippocampal bio-inspired memory models implemented on the <a href="https://apt.cs.manchester.ac.uk/projects/SpiNNaker/">SpiNNaker</a> hardware platform using the technology of the Spiking Neuronal Network (SNN) are presented. The code is written in Python and makes use of the PyNN library and their adaptation for SpiNNaker called <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjaxOCWhrn3AhVL1BoKHVtQDvsQFnoECAkQAQ&url=https%3A%2F%2Fgithub.com%2FSpiNNakerManchester%2FsPyNNaker&usg=AOvVaw3e3TBMJ-08yBqtsKza_RiE">sPyNNaker</a>. In addition, the necessary scripts to replicate the tests and plots carried out in the paper are included.
 </p>
 
 <h3>Article</h3>
@@ -41,19 +43,35 @@ Still under construction.
 
 <h2 name="RepositoryContent">Repository content</h3>
 <p align="justify">
-Still under construction.
+<ul>
+  <li><a href="CA3_oscilatory.py">CA3_oscilatory.py</a>:</li>
+  <li><a href="CA3_pc_inhibitory.py">CA3_pc_inhibitory.py</a> and <a href="CA3_pc_inhibitory_static_syn.py">CA3_pc_inhibitory_static_syn.py</a></li>
+  <li><a href="simulation_and_plot_CA3_oscilatory.py">simulation_and_plot_CA3_oscilatory.py</a> and <a href="simulation_and_plot_CA3_pc_inhibitory.py">simulation_and_plot_CA3_pc_inhibitory.py</a>:</li>
+  <li><a href="utils.py">utils.py</a>:</li>
+  <li><a href="data/">data</a> and <a href="plot/">plot</a>:</li>
+</ul>
 </p>
 
 
 <h2 name="Usage">Usage</h2>
 <p align="justify">
-Still under construction.
+In order to replicate the results of both memory models shown in the paper, it is necessary to select the configuration with which you want to build the memory within the model (comment or uncomment the block of parameters of the experiment you want to replicate) and adjust the time parameter <em>simTime</em> for the duration of the simulation based on this configuration (if the last input of information reaches the model at ms 75, give, for example, a value of 85 ms to this parameter). Once the model has been configured, the <em>simulation_and_plot</em> script corresponding to the model to be tested must be run.
+
+In the case of the regulated activity model (<strong>CA3_pc_inhibitory</strong>), the model must first be trained to learn the patterns, and the result of this training must be passed to the static model to test the recall of the patterns. Therefore, the above steps must first be applied to the dynamic version of the model (<a href="CA3_pc_inhibitory.py">CA3_pc_inhibitory.py</a>) for pattern learning. This will generate a text file in the <a href="data/">data</a> folder with all the simulation information, including the weights of the trained synapses. Next, you have to apply the previous steps again on the static memory model (<a href="CA3_pc_inhibitory_static_syn.py">CA3_pc_inhibitory_static_syn.py</a>), but changing the value of the <em>w_path</em> parameter to the full path to the previously generated file. This way, both phases of the model can be tested separately.
+
+In order to carry out experiments different from the ones performed in the paper, it is enough to modify, instead of selecting, the configuration of the previous experiments to adapt them to the desired experimental conditions. For reference, the main parameters to be modified in the models are: 
+
+<ul>
+  <li><strong>simTime</strong>: indicates how long the simulation will last.</li>
+  <li><strong>networkSize</strong>: size of the network in number of neurons. It is directly proportional to the size of the input/output of the network and the size and number of patterns it can store.</li>
+  <li><strong>DGLSpikes</strong>: the input spikes to the network. It is a 2d array where it is indicated for each input neuron (first dimension of the array) in which ms it should generate spikes (second dimension of the array).</li>
+</ul>
 </p>
 
 
 <h2 name="CiteThisWork">Cite this work</h2>
 <p align="justify">
-Still under construction.
+Accepted and awaiting publication at the congress International Joint Conference on Neural Networks of 2022 <a href="https://wcci2022.org/call-for-papers/">(IJCNN 2022)</a>. 
 </p>
 
 
