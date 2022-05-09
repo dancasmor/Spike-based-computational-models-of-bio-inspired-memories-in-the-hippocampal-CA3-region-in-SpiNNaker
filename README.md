@@ -101,7 +101,7 @@ The author of the original idea is Daniel Casanueva-Morato while working on a re
 This research was partially supported by the Spanish grant MINDROB (PID2019-105556GB-C33/AEI/10.13039/501100011033). 
 </p>
 <p align="justify">
-D. C.-M. was supported by a "Formación de Personal Universitario" Scholarship from the Spanish Ministry of Education, Culture and Sport.
+D. C.-M. was supported by a "Formación de Profesor Universitario" Scholarship from the Spanish Ministry of Education, Culture and Sport.
 </p>
 
 
