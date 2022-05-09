@@ -1,9 +1,18 @@
 # Spike-based computational models of bio-inspired memories in the hippocampal CA3 region in SpiNNaker
 
+<h2 name="Description">Description</h2>
+<p align="justify">
+Code on which the paper entitled "Spike-based computational models of bio-inspired memories in the hippocampal CA3 region in SpiNNaker" is based, accepted and awaiting publication at the congress International Joint Conference on Neural Networks of 2022 <a href="https://wcci2022.org/call-for-papers/">(IJCNN 2022)</a>. 
+</p>
+<p align="justify">
+Two hippocampal bio-inspired memory models implemented on the <a href="https://apt.cs.manchester.ac.uk/projects/SpiNNaker/">SpiNNaker</a> hardware platform using the technology of the Spiking Neuronal Network (SNN) are presented. The code is written in Python and makes use of the PyNN library and their adaptation for SpiNNaker called <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjaxOCWhrn3AhVL1BoKHVtQDvsQFnoECAkQAQ&url=https%3A%2F%2Fgithub.com%2FSpiNNakerManchester%2FsPyNNaker&usg=AOvVaw3e3TBMJ-08yBqtsKza_RiE">sPyNNaker</a>. In addition, the necessary scripts to replicate the tests and plots carried out in the paper are included.
+</p>
+
 <h2>Table of contents</h2>
 <p align="justify">
 <ul>
 <li><a href="#Description">Description</a></li>
+<li><a href="#Article">Article</a></li>
 <li><a href="#Instalation">Instalation</a></li>
 <li><a href="#Usage">Usage</a></li>
 <li><a href="#RepositoryContent">Repository content</a></li>
@@ -14,15 +23,7 @@
 </p>
 
 
-<h2 name="Description">Description</h2>
-<p align="justify">
-Code on which the paper entitled "Spike-based computational models of bio-inspired memories in the hippocampal CA3 region in SpiNNaker" is based, accepted and awaiting publication at the congress International Joint Conference on Neural Networks of 2022 <a href="https://wcci2022.org/call-for-papers/">(IJCNN 2022)</a>. 
-</p>
-<p align="justify">
-Two hippocampal bio-inspired memory models implemented on the <a href="https://apt.cs.manchester.ac.uk/projects/SpiNNaker/">SpiNNaker</a> hardware platform using the technology of the Spiking Neuronal Network (SNN) are presented. The code is written in Python and makes use of the PyNN library and their adaptation for SpiNNaker called <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjaxOCWhrn3AhVL1BoKHVtQDvsQFnoECAkQAQ&url=https%3A%2F%2Fgithub.com%2FSpiNNakerManchester%2FsPyNNaker&usg=AOvVaw3e3TBMJ-08yBqtsKza_RiE">sPyNNaker</a>. In addition, the necessary scripts to replicate the tests and plots carried out in the paper are included.
-</p>
-
-<h3>Article</h3>
+<h2 name="Article">Article</h2>
 <p align="justify">
 <strong>Title</strong>: Spike-based computational models of bio-inspired memories in the hippocampal CA3 region on SpiNNaker
 </p>
