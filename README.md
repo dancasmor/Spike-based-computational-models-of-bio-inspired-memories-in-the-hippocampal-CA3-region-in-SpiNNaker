@@ -57,6 +57,12 @@ Please go to section <a href="#CiteThisWork">cite this work</a> to learn how to 
 	</ul>
 </ol>
 </p>
+<p align="justify">
+To run any script, follow the python nomenclature: 
+<code>
+python script.py
+</code>
+</p>
 
 
 <h2 name="RepositoryContent">Repository content</h3>
