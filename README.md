@@ -7,6 +7,9 @@ Code on which the paper entitled "Spike-based computational models of bio-inspir
 <p align="justify">
 Two hippocampal bio-inspired memory models implemented on the <a href="https://apt.cs.manchester.ac.uk/projects/SpiNNaker/">SpiNNaker</a> hardware platform using the technology of the Spiking Neuronal Network (SNN) are presented. The code is written in Python and makes use of the PyNN library and their adaptation for SpiNNaker called <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjaxOCWhrn3AhVL1BoKHVtQDvsQFnoECAkQAQ&url=https%3A%2F%2Fgithub.com%2FSpiNNakerManchester%2FsPyNNaker&usg=AOvVaw3e3TBMJ-08yBqtsKza_RiE">sPyNNaker</a>. In addition, the necessary scripts to replicate the tests and plots carried out in the paper are included.
 </p>
+<p align="justify">
+Please go to section <a href="#CiteThisWork">cite this work</a> to learn how to properly reference the works cited here.
+</p>
 
 <h2>Table of contents</h2>
 <p align="justify">
