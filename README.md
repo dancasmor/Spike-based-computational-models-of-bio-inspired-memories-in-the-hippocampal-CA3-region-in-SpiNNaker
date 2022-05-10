@@ -48,12 +48,12 @@ Please go to section <a href="#CiteThisWork">cite this work</a> to learn how to 
 <p align="justify">
 <ol>
 	<li><p align="justify">Have or have access to the SpiNNaker hardware platform. In case of local use, follow the installation instructions available on the <a href="http://spinnakermanchester.github.io/spynnaker/6.0.0/index.html">official website</a></p></li>
-	<li>Python version 3.8.10</li>
-	<li>Python libraries:</li>
+	<li><p align="justify">Python version 3.8.10</p></li>
+	<li><p align="justify">Python libraries:</p></li>
 	<ul>
 		<li><p align="justify"><strong>sPyNNaker8</strong>: last stable version <a href="http://spinnakermanchester.github.io/development/gitinstall.html">compiled from source</a></p></li>
-		<li><strong>numpy</strong> 1.21.4</li>
-		<li><strong>matplotlib</strong> 3.5.0</li>
+		<li><p align="justify"><strong>numpy</strong> 1.21.4</p></li>
+		<li><p align="justify"><strong>matplotlib</strong> 3.5.0</p></li>
 	</ul>
 </ol>
 </p>
