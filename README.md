@@ -47,11 +47,11 @@ Please go to section <a href="#CiteThisWork">cite this work</a> to learn how to 
 <h2 name="Instalation">Instalation</h2>
 <p align="justify">
 <ol>
-	<li>Have or have access to the SpiNNaker hardware platform. In case of local use, follow the installation instructions available on the <a href="http://spinnakermanchester.github.io/spynnaker/6.0.0/index.html">official website</a></li>
+	<li><p align="justify">Have or have access to the SpiNNaker hardware platform. In case of local use, follow the installation instructions available on the <a href="http://spinnakermanchester.github.io/spynnaker/6.0.0/index.html">official website</a></p></li>
 	<li>Python version 3.8.10</li>
 	<li>Python libraries:</li>
 	<ul>
-		<li><strong>sPyNNaker8</strong>: last stable version <a href="http://spinnakermanchester.github.io/development/gitinstall.html">compiled from source</a></li>
+		<li><p align="justify"><strong>sPyNNaker8</strong>: last stable version <a href="http://spinnakermanchester.github.io/development/gitinstall.html">compiled from source</a></p></li>
 		<li><strong>numpy</strong> 1.21.4</li>
 		<li><strong>matplotlib</strong> 3.5.0</li>
 	</ul>
@@ -68,11 +68,11 @@ python script.py
 <h2 name="RepositoryContent">Repository content</h3>
 <p align="justify">
 <ul>
-  <li><a href="CA3_oscilatory.py">CA3_oscilatory.py</a>: script responsible for building and simulating the oscillating memory model, as well as storing the simulation data in a file.</li>
-  <li><a href="CA3_pc_inhibitory.py">CA3_pc_inhibitory.py</a> and <a href="CA3_pc_inhibitory_static_syn.py">CA3_pc_inhibitory_static_syn.py</a>: scripts similar to the above but for the regulated activity model. The former works with the dynamic model (train) and the latter with the static model (test).</li>
-  <li><a href="simulation_and_plot_CA3_oscilatory.py">simulation_and_plot_CA3_oscilatory.py</a> and <a href="simulation_and_plot_CA3_pc_inhibitory.py">simulation_and_plot_CA3_pc_inhibitory.py</a>: scripts in charge of carrying out the simulation of the models and the plotting of the necessary graphics on these simulations.</li>
-  <li><a href="utils.py">utils.py</a>: set of functions used as tools for the collection, storage, processing and plotting of information from the neuronal network.</li>
-  <li><a href="data/">data</a> and <a href="plot/">plot</a>: folders where the data files from the network simulation are stored and where the plots of these data are stored respectively.</li>
+  <li><p align="justify"><a href="CA3_oscilatory.py">CA3_oscilatory.py</a>: script responsible for building and simulating the oscillating memory model, as well as storing the simulation data in a file.</p></li>
+  <li><p align="justify"><a href="CA3_pc_inhibitory.py">CA3_pc_inhibitory.py</a> and <a href="CA3_pc_inhibitory_static_syn.py">CA3_pc_inhibitory_static_syn.py</a>: scripts similar to the above but for the regulated activity model. The former works with the dynamic model (train) and the latter with the static model (test).</p></li>
+  <li><p align="justify"><a href="simulation_and_plot_CA3_oscilatory.py">simulation_and_plot_CA3_oscilatory.py</a> and <a href="simulation_and_plot_CA3_pc_inhibitory.py">simulation_and_plot_CA3_pc_inhibitory.py</a>: scripts in charge of carrying out the simulation of the models and the plotting of the necessary graphics on these simulations.</p></li>
+  <li><p align="justify"><a href="utils.py">utils.py</a>: set of functions used as tools for the collection, storage, processing and plotting of information from the neuronal network.</p></li>
+  <li><p align="justify"><a href="data/">data</a> and <a href="plot/">plot</a>: folders where the data files from the network simulation are stored and where the plots of these data are stored respectively.</p></li>
 </ul>
 </p>
 
@@ -89,9 +89,9 @@ In order to carry out experiments different from the ones performed in the paper
 </p>
 <p align="justify">
 <ul>
-  <li><strong>simTime</strong>: indicates how long the simulation will last.</li>
-  <li><strong>networkSize</strong>: size of the network in number of neurons. It is directly proportional to the size of the input/output of the network and the size and number of patterns it can store.</li>
-  <li><strong>DGLSpikes</strong>: the input spikes to the network. It is a 2d array where it is indicated for each input neuron (first dimension of the array) in which ms it should generate spikes (second dimension of the array).</li>
+  <li><p align="justify"><strong>simTime</strong>: indicates how long the simulation will last.</p></li>
+  <li><p align="justify"><strong>networkSize</strong>: size of the network in number of neurons. It is directly proportional to the size of the input/output of the network and the size and number of patterns it can store.</p></li>
+  <li><p align="justify"><strong>DGLSpikes</strong>: the input spikes to the network. It is a 2d array where it is indicated for each input neuron (first dimension of the array) in which ms it should generate spikes (second dimension of the array).</p></li>
 </ul>
 </p>
 
