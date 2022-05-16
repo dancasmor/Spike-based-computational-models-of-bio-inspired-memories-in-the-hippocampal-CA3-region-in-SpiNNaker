@@ -98,7 +98,16 @@ In order to carry out experiments different from the ones performed in the paper
 
 <h2 name="CiteThisWork">Cite this work</h2>
 <p align="justify">
-Accepted and awaiting publication at the congress International Joint Conference on Neural Networks of 2022 <a href="https://wcci2022.org/call-for-papers/">(IJCNN 2022)</a>. 
+<strong>APA</strong>: Casanueva-Morato, D., Ayuso-Martinez, A., Dominguez-Morales, J. P., Jimenez-Fernandez, A., & Jimenez-Moreno, G. (2022). Spike-based computational models of bio-inspired memories in the hippocampal CA3 region on SpiNNaker. arXiv preprint arXiv:2205.04782.
+</p>
+<p align="justify">
+<strong>ISO 690</strong>: CASANUEVA-MORATO, Daniel, et al. Spike-based computational models of bio-inspired memories in the hippocampal CA3 region on SpiNNaker. arXiv preprint arXiv:2205.04782, 2022.
+</p>
+<p align="justify">
+<strong>MLA</strong>: Casanueva-Morato, Daniel, et al. "Spike-based computational models of bio-inspired memories in the hippocampal CA3 region on SpiNNaker." arXiv preprint arXiv:2205.04782 (2022).
+</p>
+<p align="justify">
+<strong>BIBTEX</strong>: @article{casanueva2022spike, title={Spike-based computational models of bio-inspired memories in the hippocampal CA3 region on SpiNNaker}, author={Casanueva-Morato, Daniel and Ayuso-Martinez, Alvaro and Dominguez-Morales, Juan P and Jimenez-Fernandez, Angel and Jimenez-Moreno, Gabriel}, journal={arXiv preprint arXiv:2205.04782}, year={2022}}
 </p>
 
 
