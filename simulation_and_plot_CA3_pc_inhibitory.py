@@ -84,7 +84,7 @@ if __name__ == "__main__":
     # + If execute the network or take already generated data
     execute = True
     # + if execute dinamic or static version
-    executeSTDPCA3 = False
+    executeSTDPCA3 = True
     # + If not execute, the full path to the file with the data recorded from the simulation and the base name used to store
     #   the generated files (txt, png, ...)
     fullPathFile = "data/CA3_simple_2021_11_18__12_42_34.txt"
