@@ -2,7 +2,7 @@
 
 <h2 name="Description">Description</h2>
 <p align="justify">
-Code on which the paper entitled "Spike-based computational models of bio-inspired memories in the hippocampal CA3 region in SpiNNaker" is based, accepted and awaiting publication at the congress International Joint Conference on Neural Networks of 2022 <a href="https://wcci2022.org/call-for-papers/">(IJCNN 2022)</a>. 
+Code on which the paper entitled "Spike-based computational models of bio-inspired memories in the hippocampal CA3 region in SpiNNaker" is based, accepted and awaiting publication at the congress International Joint Conference on Neural Networks of 2022 <a href="https://wcci2022.org">(IJCNN 2022)</a>. 
 </p>
 <p align="justify">
 Two hippocampal bio-inspired memory models implemented on the <a href="https://apt.cs.manchester.ac.uk/projects/SpiNNaker/">SpiNNaker</a> hardware platform using the technology of the Spiking Neuronal Network (SNN) are presented. The code is written in Python and makes use of the PyNN library and their adaptation for SpiNNaker called <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjaxOCWhrn3AhVL1BoKHVtQDvsQFnoECAkQAQ&url=https%3A%2F%2Fgithub.com%2FSpiNNakerManchester%2FsPyNNaker&usg=AOvVaw3e3TBMJ-08yBqtsKza_RiE">sPyNNaker</a>. In addition, the necessary scripts to replicate the tests and plots carried out in the paper are included.
@@ -93,6 +93,29 @@ In order to carry out experiments different from the ones performed in the paper
   <li><p align="justify"><strong>networkSize</strong>: size of the network in number of neurons. It is directly proportional to the size of the input/output of the network and the size and number of patterns it can store.</p></li>
   <li><p align="justify"><strong>DGLSpikes</strong>: the input spikes to the network. It is a 2d array where it is indicated for each input neuron (first dimension of the array) in which ms it should generate spikes (second dimension of the array).</p></li>
 </ul>
+</p>
+<p align="justify">
+The workflow for the network with oscilatory activity would be as follows:
+</p>
+<p align="justify">
+<ol>
+    <li><p align="justify">Change DGLSpikes on <a href="CA3_oscilatory.py">CA3_oscilatory.py</a> to indicate the operations and content of the operations to be performed and adapt the simulation time to that input. For each operation, 5 units of time are required to maintain the spikes at the input and, between each operation, 10 units of time are required since the last input spike.</p></li>
+    <li><p align="justify">Execute the simulation: <code>python simulation_and_plot_CA3_pc_inhibitory.py</code>.</p></li>
+    <li><p align="justify">The results can be seen graphically in the <a href="plot/">plot</a> folder.</p></li>
+</ol>
+</p>
+<p align="justify">
+The workflow for the network with regulated activity would be as follows:
+</p>
+<p align="justify">
+<ol>
+    <li><p align="justify">Start with the learning phase. Change DGLSpikes on <a href="CA3_pc_inhibitory.py">CA3_pc_inhibitory.py</a> to indicate the learning operation to be performed and adapt the simulation time to that input. For each learning operation, only 1 unit of time is required to maintain the spikes at the input and, between each operation, 10 units of time are required.</p></li>
+    <li><p align="justify">Check that executeSTDPCA3 is true in the <a href="simulation_and_plot_CA3_pc_inhibitory.py">simulation_and_plot_CA3_pc_inhibitory.py</a> file to execute the learning phase first. Execute the simulation: <code>python simulation_and_plot_CA3_oscilatory.py</code>. At the end of the training simulation, the script returns the full path to the generated data file.</p></li>
+    <li><p align="justify">Start the recall/test phase. Indicate in w_path of the <a href="CA3_pc_inhibitory_static_syn.py">CA3_pc_inhibitory_static_syn.py</a> file the full path taken from the simulation of the learning phase to pass the trained weights to the recall/test phase.</p></li>
+    <li><p align="justify">Change DGLSpikes on <a href="CA3_pc_inhibitory_static_syn.py">CA3_pc_inhibitory_static_syn.py</a> to indicate the recall operation to be performed and adapt the simulation time to that input. For each recall operation, the cue needs to be presented at the network input 2 times with a distance of 3 time units between them, i.e. if the first one was given in time unit 1, the next one will be given in 4. Moreover, between each operation, 10 units of time are required since the last input spike.</p></li>
+    <li><p align="justify">Check that executeSTDPCA3 is false in the <a href="simulation_and_plot_CA3_pc_inhibitory.py">simulation_and_plot_CA3_pc_inhibitory.py</a> file to execute the recall phase. Execute the simulation: <code>python simulation_and_plot_CA3_oscilatory.py</code>.</p></li>
+    <li><p align="justify">The results can be seen graphically in the <a href="plot/">plot</a> folder.</p></li>
+</ol>
 </p>
 
 
