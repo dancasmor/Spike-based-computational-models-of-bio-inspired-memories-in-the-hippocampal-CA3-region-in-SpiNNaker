@@ -175,7 +175,7 @@ def get_last_stamp_synapse_list(dataPath, delay=1.0, synapse="PCL-PCL"):
 
     # Check if data has been found
     if w == {}:
-        print("Error al leer el archivo")
+        print("Error to read the weight file. Try to redo training with recordWeight = True.")
         return False
 
     # Take the last timeStamp
