@@ -29,7 +29,7 @@ networkSize = 15
 popNeurons = {"DGLayer": networkSize, "PCLayer": networkSize, "INHLayer": networkSize, "LEARNING": 1}
 
 # + If store the weight or not (large increase in simulation time)
-recordWeight = False
+recordWeight = True
 
 # + Input spikes
 # 2 non-orthogonal patterns
